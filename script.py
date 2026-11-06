@@ -22,18 +22,29 @@ def invert(texto):
         return resultado2
 
 
-def maioria(texto):
+def eh_primo(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def maioria(palavra):
     vogais = "aeiou"
+    primo = eh_primo(len(palavra))
+    resultado = ""
 
-    v = [letra for letra in texto if letra in vogais]
-    c = [letra for letra in texto if letra not in vogais]
+    for letra in palavra:
+        e_vogal = letra in vogais
 
-    if len(v) < len(c):
-        return "".join(v)
-    elif len(c) < len(v):
-        return "".join(c)
-    else:
-        return "empate"
+        if primo and not e_vogal:
+            resultado += letra
+        if not primo and e_vogal:
+            resultado += letra
+
+    return resultado
 
 palavra = input("Digite uma palavra para cifrar: ").lower()
 print(cifrar(palavra) + invert(palavra) + maioria(palavra))
